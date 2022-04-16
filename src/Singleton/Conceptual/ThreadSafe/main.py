@@ -67,7 +67,7 @@ class SingletonMeta(type):
 
 
 class Singleton(metaclass=SingletonMeta):
-    value: str = None
+    _value: str = None
     """
     We'll use this property to prove that our Singleton really works.
     
@@ -75,7 +75,7 @@ class Singleton(metaclass=SingletonMeta):
     """
 
     def __init__(self, value: str) -> None:
-        self.value = value
+        self._value = value
 
     def some_business_logic(self):
         """
@@ -86,11 +86,13 @@ class Singleton(metaclass=SingletonMeta):
         Finalmente, cualquier singleton debe definir alguna lógica comercial, que puede ser
         ejecutado en su instancia
         """
+    def imprime(self):
+        print(self._value)
 
 
 def test_singleton(value: str) -> None:    
     singleton = Singleton(value)
-    print(singleton.value)
+    singleton.imprime()    
 
 
 if __name__ == "__main__":
@@ -109,5 +111,5 @@ if __name__ == "__main__":
 
     process1 = Thread(target=test_singleton, args=("FOO",))
     process2 = Thread(target=test_singleton, args=("BAR",))
-    process1.start()
+    process1.start()    
     process2.start()
